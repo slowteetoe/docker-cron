@@ -1,8 +1,6 @@
 FROM phusion/baseimage:0.9.12
 MAINTAINER Steven Lotito "steven.lotito@alumni.pitt.edu"
 
-ENV HOME /root
-
 # fix sources
 RUN sed 's/main$/main universe/' -i /etc/apt/sources.list
 RUN sed 's/trusty universe/trusty universe multiverse/' -i /etc/apt/sources.list
@@ -36,4 +34,8 @@ ADD crontab.txt /tmp/
 RUN crontab /tmp/crontab.txt
 RUN mkdir /logs
 
-CMD ["/usr/bin/supervisord"]
+ENV ENV_TYPE default
+#CMD ["/usr/bin/supervisord"]
+
+# so if you use baseimage and take advantage of my_init, it will write env variables to /etc/container_environment.sh which you can then source in your cron
+CMD ["/sbin/my_init"]

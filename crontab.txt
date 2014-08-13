@@ -1,1 +1,1 @@
-* * * * * echo `date` >> /logs/cronoutput
+* * * * * . /etc/container_environment.sh; echo "`date` from $ENV_TYPE `env`" >> /logs/cronoutput 2>&1
